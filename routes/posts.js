@@ -21,9 +21,9 @@ router.get('/join', isNotLoggedIn, (req, res) => {
   res.render('join', { title: 'Join to - prj-name' });
 });
 
+// 팔로잉 게시글 보기 
 router.get('/following', async (req, res, next) => {
   try {
-    console.log("/posts/following")
     const posts = await Post.findAll({
       include: {
         model: User,
@@ -33,7 +33,7 @@ router.get('/following', async (req, res, next) => {
     });
     const following = true
     res.render('posts', {
-      title: 'prj-name',
+      title: 'Posts - prj-name',
       twits: posts,
       following: following,
     });
@@ -43,9 +43,9 @@ router.get('/following', async (req, res, next) => {
   }
 });
 
+// 팔로워 게시글 보기
 router.get('/follower', async (req, res, next) => {
   try {
-    console.log("/posts/following")
     const posts = await Post.findAll({
       include: {
         model: User,
@@ -55,7 +55,7 @@ router.get('/follower', async (req, res, next) => {
     });
     const following = false
     res.render('posts', {
-      title: 'prj-name',
+      title: 'Posts - prj-name',
       twits: posts,
       following: following,
     });
@@ -64,7 +64,5 @@ router.get('/follower', async (req, res, next) => {
     next(err);
   }
 });
-
-
 
 module.exports = router;
