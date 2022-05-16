@@ -12,8 +12,23 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile', { title: 'Profile - prj-name' });
+router.get('/profile', isLoggedIn, async (req, res, next) => {
+  try {
+    const posts = await Post.findAll({
+      include: {
+        model: User,
+        attributes: ['id', 'nick'],
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    res.render('profile', {
+      title: 'Profile - prj-name',
+      twits: posts,
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 
 router.get('/join', isNotLoggedIn, (req, res) => {
