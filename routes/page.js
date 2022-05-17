@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Post, User, Hashtag } = require('../models');
+const { Post, User, Hashtag, Heart } = require('../models');
 
 const router = express.Router();
 
@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {
     });
     res.render('main', {
       title: 'prj-name',
-      twits: posts,
+      twits: posts
     });
   } catch (err) {
     console.error(err);
