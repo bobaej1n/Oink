@@ -53,6 +53,6 @@ module.exports = class User extends Sequelize.Model {
       through: "Follow",
     });
     db.User.hasMany(db.Comment, { foreignKey: "userId", sourceKey: "id" });
-    db.User.hasMany(db.Heart, { foreignKey: "userId", sourceKey: "id" });
+    db.User.hasMany(db.Heart, { foreignKey: "userId", sourceKey: "id", as: "Hearts" });
   }
 };
