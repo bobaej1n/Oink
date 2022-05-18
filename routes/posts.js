@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Post, User } = require('../models');
+const { Post, User, Heart } = require('../models');
 
 const router = express.Router();
 
@@ -53,11 +53,37 @@ router.get('/follower', async (req, res, next) => {
       },
       order: [['createdAt', 'DESC']],
     });
-    const following = false
+    const follower = true
     res.render('posts', {
       title: 'Posts - prj-name',
       twits: posts,
-      following: following,
+      follower: follower,
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+// 좋아요한 게시글 보기
+router.get('/like', async (req, res, next) => {
+  try {
+    const posts = await Post.findAll({
+      include: {
+        model: User,
+        attributes: ['id', 'nick'],
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    const hearts = await Heart.findAll({
+      include: [{ all: true }]
+    });
+    const like = true
+    res.render('posts', {
+      title: 'Posts - prj-name',
+      twits: posts,
+      hearts: hearts,
+      like: like,
     });
   } catch (err) {
     console.error(err);
