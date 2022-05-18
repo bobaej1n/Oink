@@ -41,7 +41,7 @@ router.get("/join", isNotLoggedIn, (req, res) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    const posts = await await Post.findAll({
+    const posts = await Post.findAll({
       include: [
         {
           model: User,
@@ -55,13 +55,18 @@ router.get("/", async (req, res, next) => {
               model: User
             }
           ]
+        },
+        {
+          model: Heart,
+          as: 'hearts'
         }
       ],
       order: [["createdAt", "DESC"]],
     });
+
     res.render("main", {
       title: "prj-name",
-      twits: posts,
+      twits: posts
     });
   } catch (err) {
     console.error(err);
