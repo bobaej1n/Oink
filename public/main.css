@@ -106,3 +106,18 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
 #join-form { padding: 10px; text-align: center; }
 #hashtag-form { text-align: right; }
 footer { text-align: center; }
+
+#comment-content {
+  width: 93%; min-height: 32px;
+}
+
+#comment-submit {
+  float: right;
+  color: black;
+  font-size: 0.7em;
+  background: pink;
+  border: none;
+  border-radius: 5px;
+  width: 5%;
+  height: 32px;
+}
