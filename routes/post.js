@@ -89,4 +89,34 @@ router.post("/comment", isLoggedIn, async (req, res, next) => {
 }
 });
 
+router.delete("/comment", async (req, res, next) => {
+  try {
+    const { id } = req.body;
+
+    const comment = await Comment.findOne({
+      where: {
+        id: id
+      },
+    });
+
+    if (comment) {
+      comment.destroy({
+        id
+      });
+      res.status = 200;
+      res.json({
+        result: "deleted",
+      });
+    } else {
+      res.status = 404;
+      res.json({
+        result: "comment not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = router;
