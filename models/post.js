@@ -29,7 +29,7 @@ module.exports = class Post extends Sequelize.Model {
   static associate(db) {
     db.Post.belongsTo(db.User);
     db.Post.belongsToMany(db.Hashtag, { through: "PostHashtag" });
-    db.Post.hasMany(db.Comment, { foreignKey: "postId", sourceKey: "id" });
+    db.Post.hasMany(db.Comment, { foreignKey: "postId", sourceKey: "id", as:"comments" });
     db.Post.hasMany(db.Heart, { foreignKey: "postId", sourceKey: "id" });
   }
 };

@@ -121,3 +121,30 @@ footer { text-align: center; }
   width: 5%;
   height: 32px;
 }
+
+.comments {
+  display: block;
+}
+
+details summary { 
+  cursor: pointer;
+}
+
+.comment {
+  display: flex;
+  width: 100%;
+}
+
+.comment__content {
+  flex: 5;
+}
+
+.comment__createdAt {
+  flex: 2;
+}
+
+.comment__delete {
+  flex: 0.1;
+  margin: 0;
+  padding: 0;
+}

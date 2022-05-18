@@ -53,6 +53,7 @@
     <i class="fa fa-heart"></i>
   </a>
 
+  <div>
   <details>
     <summary>댓글</summary>
     <div>
@@ -63,7 +64,23 @@
       <button id="comment-submit" type="submit">작성</button>
   </form>
   </div>
+  <p class="comments">
+    {% for comment in twit.comments %}
+    <div class="comment">
+      <div class="comment__content">
+        {{comment.content}}
+      </div>
+      <div class="comment__createdAt"> 
+        {{comment.createdAt}}
+      </div>
+      <a class="comment__delete">
+      <i class="fa fa-trash"></i>
+      </a>
+    </div>
+    {% endfor %}
+    </p>
 </details>
+</div> <!--댓글 끝-->
 <br>
   {% endfor %}
 </div>
