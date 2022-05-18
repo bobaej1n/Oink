@@ -52,7 +52,19 @@
     onclick="javascript:heart('{{twit.User.id}}', '{{twit.id}}' , false);">
     <i class="fa fa-heart"></i>
   </a>
-  
+
+  <details>
+    <summary>댓글</summary>
+    <div>
+    <form action="/post/comment" method="post">
+      <input type="hidden" name="userId" value="{{twit.User.id}}" class="twit-user-id">
+      <input type="hidden" name="postId" value="{{twit.id}}" class="twit-id">
+      <textarea id="comment-content" name="content" maxlength="140"></textarea>
+      <button id="comment-submit" type="submit">작성</button>
+  </form>
+  </div>
+</details>
+<br>
   {% endfor %}
 </div>
 </div>
