@@ -53,6 +53,7 @@
     <i class="fa fa-heart"></i>
   </a>
 
+  <!-- 댓글 -->
   <div>
   <details>
     <summary>댓글</summary>
@@ -73,14 +74,19 @@
       <div class="comment__createdAt"> 
         {{comment.createdAt}}
       </div>
-      <a class="comment__delete">
+      <!-- 내 댓글일 경우만 삭제 가능함 -->
+      {% if comment.userId == user.id %}
+      <a class="comment__delete" href="javascript:void(0);"
+      onclick="javascript:deleteComment('{{comment.id}}');">
       <i class="fa fa-trash"></i>
       </a>
+      {% endif %}
     </div>
     {% endfor %}
     </p>
 </details>
-</div> <!--댓글 끝-->
+</div> 
+<!--댓글 끝-->
 <br>
   {% endfor %}
 </div>
@@ -152,6 +158,26 @@
         location.reload();
       })
       .catch(err => console.log("하트 삭제 실패", err));
+    }
+  }
+
+  // 댓글 삭제
+  function deleteComment(commentId) {
+    if (confirm('댓글을 정말로 삭제하시겠습니까?')) {
+      axios.delete('/post/comment', {
+        data: {
+          id: commentId
+        }
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          alert('삭제되었습니다.');
+        }
+        location.reload();
+      })
+      .catch((err) => {
+        alert(err);
+      });
     }
   }
 </script>
