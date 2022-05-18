@@ -73,6 +73,13 @@ router.post("/comment", isLoggedIn, async (req, res, next) => {
       postId: req.body.postId,
       content: req.body.content
     });
+
+    const post = await Post.findOne({
+      where: {id: req.body.postId}
+    });
+
+    post.addComments(comment)
+
       res.redirect("/");
       console.log(res)
       
