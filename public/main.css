@@ -131,12 +131,18 @@ details summary {
 }
 
 .comment {
+  margin-bottom: 0.5em;
+  background-color: aliceblue;
+}
+
+.comment-info-container {
   display: flex;
   width: 100%;
 }
 
-.comment__content {
+.comment__user {
   flex: 5;
+  font-weight: bold;
 }
 
 .comment__createdAt {

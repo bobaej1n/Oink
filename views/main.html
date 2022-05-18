@@ -68,9 +68,8 @@
   <p class="comments">
     {% for comment in twit.comments %}
     <div class="comment">
-      <div class="comment__content">
-        {{comment.content}}
-      </div>
+    <div class="comment-info-container">
+      <div class="comment__user">{{comment.User.nick}}</div>
       <div class="comment__createdAt"> 
         {{comment.createdAt}}
       </div>
@@ -81,6 +80,10 @@
       <i class="fa fa-trash"></i>
       </a>
       {% endif %}
+    </div>
+    <div class="comment__content">
+      {{comment.content}}
+    </div>
     </div>
     {% endfor %}
     </p>

@@ -49,7 +49,12 @@ router.get("/", async (req, res, next) => {
         },
         {
           model: Comment,
-          as: 'comments'
+          as: 'comments',
+          include: [
+            {
+              model: User
+            }
+          ]
         }
       ],
       order: [["createdAt", "DESC"]],
