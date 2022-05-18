@@ -40,25 +40,33 @@
     </div>
 
     <!-- 좋아요 -->
-    <!-- 구현 할 것 -->
-    <!-- 1. 하트 유/무에 따라 다르게 표시 해야함. -->
-    <!-- 2. 동적으로 아이콘 바꿔야 함. -->
+    {% set isHeart = false %}
+    {% for heart in twit.hearts %}
+      {% if heart.userId == user.id %}
+        {% set isHeart = true %}
+      {% endif %}
+    {% endfor %}
+
+    {% if isHeart == false %}
     <a class="twit-heart" href="javascript:void(0);"
-      onclick="javascript:heart('{{user.id}}', '{{twit.id}}', true);">
-      <i class="fa fa-heart-o"></i>
-    </a>
-    
-    <a class="twit-heart" href="javascript:void(0);"
-    onclick="javascript:heart('{{user.id}}', '{{twit.id}}' , false);">
-    <i class="fa fa-heart"></i>
+    onclick="javascript:heart('{{user.id}}', '{{twit.id}}', true, this);">
+    <i class="fa fa-heart-o"></i>
   </a>
+    {% else %}
+    <a class="twit-heart" href="javascript:void(0);"
+    onclick="javascript:heart('{{user.id}}', '{{twit.id}}' , false, this);">
+    <i class="fa fa-heart"></i>
+    </a>
+    {% endif %}
 
   {{twit.hearts.length}}
+
+  <!-- 좋아요 끝 -->
 
   <!-- 댓글 -->
   <div>
   <details>
-    <summary>댓글</summary>
+    <summary>{{twit.comments.length}}개의 댓글 보기</summary>
     <div>
     <form action="/post/comment" method="post">
       <input type="hidden" name="userId" value="{{twit.User.id}}" class="twit-user-id">
@@ -137,7 +145,7 @@
   });
 
   // 좋아요
-  function heart(userId, postId, isDoHeart) {
+  function heart(userId, postId, isDoHeart, tag) {
     if (isDoHeart) {              
       axios.post('/heart', {
           userId: userId,
@@ -145,8 +153,9 @@
         })
         .then((res) => {
           console.log(res);
-          document.getElementsByClassName("twit-heart").innerHTML = "<i class='fa fa-heart'></i>";
-          location.reload();
+          if (res.status == 200) {
+            location.reload();
+          }
         })
         .catch(err => console.log("하트 추가 실패", err));
     }
@@ -158,9 +167,7 @@
         }
       })
       .then((res) => {
-        console.log(res);
-        document.getElementsByClassName("twit-heart").innerHTML = "<i class='fa fa-heart-o'></i>";
-        location.reload();
+        if (res.status == 200) location.reload();
       })
       .catch(err => console.log("하트 삭제 실패", err));
     }

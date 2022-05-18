@@ -11,8 +11,6 @@ router.use((req, res, next) => {
   res.locals.followerIdList = req.user
     ? req.user.Followings.map((f) => f.id)
     : [];
-  //console.log(req.user.Heart);
-  //res.locals.userHeartList = req.user ? req.user.Heart.map(f => f.id) : [];
   next();
 });
 
@@ -49,24 +47,24 @@ router.get("/", async (req, res, next) => {
         },
         {
           model: Comment,
-          as: 'comments',
+          as: "comments",
           include: [
             {
-              model: User
-            }
-          ]
+              model: User,
+            },
+          ],
         },
         {
           model: Heart,
-          as: 'hearts'
-        }
+          as: "hearts",
+        },
       ],
       order: [["createdAt", "DESC"]],
     });
 
     res.render("main", {
       title: "prj-name",
-      twits: posts
+      twits: posts,
     });
   } catch (err) {
     console.error(err);
@@ -88,7 +86,7 @@ router.get("/hashtag", async (req, res, next) => {
 
     return res.render("main", {
       title: `${query} | NodeBird`,
-      twits: posts,
+      twits: posts
     });
   } catch (error) {
     console.error(error);

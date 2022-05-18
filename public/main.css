@@ -122,12 +122,16 @@ footer { text-align: center; }
   height: 32px;
 }
 
-.comments {
-  display: block;
+.twit-heart {
+  color: #DF362D;
 }
 
-details summary { 
+details > summary {
   cursor: pointer;
+}
+
+.comments {
+  display: block;
 }
 
 .comment {
@@ -150,6 +154,7 @@ details summary {
 }
 
 .comment__delete {
+  color: gray;
   flex: 0.1;
   margin: 0;
   padding: 0;
