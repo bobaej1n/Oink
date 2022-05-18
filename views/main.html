@@ -44,14 +44,16 @@
     <!-- 1. 하트 유/무에 따라 다르게 표시 해야함. -->
     <!-- 2. 동적으로 아이콘 바꿔야 함. -->
     <a class="twit-heart" href="javascript:void(0);"
-      onclick="javascript:heart('{{twit.User.id}}', '{{twit.id}}', true);">
+      onclick="javascript:heart('{{user.id}}', '{{twit.id}}', true);">
       <i class="fa fa-heart-o"></i>
     </a>
     
     <a class="twit-heart" href="javascript:void(0);"
-    onclick="javascript:heart('{{twit.User.id}}', '{{twit.id}}' , false);">
+    onclick="javascript:heart('{{user.id}}', '{{twit.id}}' , false);">
     <i class="fa fa-heart"></i>
   </a>
+
+  {{twit.hearts.length}}
 
   <!-- 댓글 -->
   <div>
