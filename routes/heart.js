@@ -37,9 +37,9 @@ router.post('/', isLoggedIn, async (req, res, next) => {
                 userId,
                 postId
             });
-            res.status = 201;
+            res.status = 200;
             res.json({
-                result: "created"
+                result: "하트 추가됨"
             });
         }
     } catch (error) {
