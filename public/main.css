@@ -47,6 +47,14 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
   background: lightcoral;
 }
 .user-name { font-weight: bold; font-size: 18px; }
+
+.user-profileImg {
+  border-radius: 70%;
+  overflow: hidden;
+  width: "100px";
+  height: "100px";
+}
+
 .count { font-weight: bold; color: crimson; font-size: 18px; }
 .timeline {
   margin-top: 10px;
@@ -167,7 +175,7 @@ details > summary {
   margin: 10px;
   width: fit-content;
   height: fit-content;
-  border: 1px solid black;
+  border: 2px solid #d96161;
   border-radius: 5px;
 }
 
@@ -181,6 +189,7 @@ details > summary {
 .modify-content {
   margin: 20px;
   width: fit-content;
+  height: fit-content;
 }
 
 .modify-btn {
@@ -198,6 +207,14 @@ details > summary {
   border-radius: 5px;
   font-weight: 600;
 }
+
+.modify-profileImg {
+  border-radius: 70%;
+  overflow: hidden;
+  width: "100px";
+  height: "100px";
+}
+
 .btn-oink {
   font-family: 'Inter';
   font-style: normal;
