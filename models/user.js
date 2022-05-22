@@ -26,6 +26,11 @@ module.exports = class User extends Sequelize.Model {
           type: Sequelize.STRING(30),
           allowNull: true,
         },
+        // 프로필 이미지
+        profileImg: {
+          type: Sequelize.BLOB(),
+          allowNull: true,
+        }
       },
       {
         sequelize,
