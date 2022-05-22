@@ -159,3 +159,40 @@ details > summary {
   margin: 0;
   padding: 0;
 }
+
+.btn-oink {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 36px;
+  color: #000000;
+}
+
+.btn-oink-down-arrow {
+  width: 15px;
+  height: 15px;
+  left: 203px;
+  top: 49px;
+
+  display: none;
+}
+
+.dropdown-item {
+  /* position: absolute; */
+  width: 64px;
+  height: 10px;
+  left: 136px;
+  top: 82px;
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+  /* identical to box height */
+  
+  color: #000000;
+  
+}
