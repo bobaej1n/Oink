@@ -20,8 +20,11 @@
       <div class="menu">
         {% if user and user.id %}
           <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              Oink
+            <button class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" onclick="dis()">
+              <div class="btn-oink">
+                Oink
+                <img src="images\\down-arrow.png" class="btn-oink-down-arrow">
+              </div>
             </button>
             <div class="dropdown-menu">
               <div><a class="dropdown-item" href="/">홈</a></div>
@@ -81,6 +84,13 @@
           alert(new URL(location.href).searchParams.get('loginError'));
         }
       };
+      function dis() {
+        if($('.dropdown').hasClass('open') == true) {
+          $('.btn-oink-down-arrow').hide();
+        } else {
+          $('.btn-oink-down-arrow').show();
+        }
+      }
     </script>
     {% block script %}
     {% endblock %}
