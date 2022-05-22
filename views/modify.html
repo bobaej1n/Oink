@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="modify-box">
+
+    <div class="modify-title">프로필 수정</div>
+
+    <div class="modify-content">
+      <span>
+        <img src="" alt="프로필 이미지" width="100px" height="100px"/>
+      </span>
+      <button class="btn">프로필 이미지 변경</button>
+    </div>
+
+    <div class="modify-content">
+      <span style="margin-right: 10px">닉네임</span>
+      <input type="text" id="nickname" required size="20">
+    </div>
+
+    <div class="modify-content">
+      <span style="margin-right: 10px">이메일</span>
+      <input type="email" id="email" required size="20">
+    </div>
+
+    <div class="modify-btn">
+      <form action="" method="post">
+        <button class="modify-save" type="button">저장</button>
+      </form>
+    </div>
+
+  </div>
+{% endblock %}
