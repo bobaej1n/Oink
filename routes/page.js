@@ -33,6 +33,10 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.get("/modify", isLoggedIn, async (req, res, next) => {
+  res.render("modify", { title: "Modify - prj-name" });
+});
+
 router.get("/join", isNotLoggedIn, (req, res) => {
   res.render("join", { title: "Join to - prj-name" });
 });

@@ -37,7 +37,10 @@
       <div class="profile-wrap">
         <div class="profile">
           {% if user and user.id %}
-            <div class="user-name">{{'안녕하세요! ' + user.nick + '님'}}</div>
+            <div class="user-name">
+              <img src="../images/default.png" alt="프로필 이미지" width="100px" height="100px" />
+              &nbsp;&nbsp;&nbsp;{{user.nick + '님'}}
+            </div>
             <div class="half">
               <div>팔로잉</div>
               <div class="count following-count">{{followingCount}}</div>
@@ -50,6 +53,7 @@
           <a id="posts-like" href="/posts/like" class="btn">좋아요한 게시글</a>
           <a id="my-profile" href="/profile" class="btn">내 프로필</a>
           <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+          <a id="modify" href="/modify" class="btn">프로필 수정</a>
         {% else %}
           <form id="login-form" action="/auth/login" method="post">
             <div class="input-group">
