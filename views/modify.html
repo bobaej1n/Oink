@@ -5,28 +5,29 @@
 
     <div class="modify-title">프로필 수정</div>
 
-    <div class="modify-content">
-      <span>
-        <img src="../images/default.png" alt="프로필 이미지" width="100px" height="100px"/>
-      </span>
-      <button class="btn">프로필 이미지 변경</button>
-    </div>
+    <form id="save" action="/user/{{user.id}}/modify" method="post">
 
-    <div class="modify-content">
-      <span style="margin-right: 10px">닉네임</span>
-      <input type="text" id="nickname" required size="20">
-    </div>
+      <div class="modify-content">
+        <span>
+          <img src="../images/default.png" alt="프로필 이미지" id="profileImg" width="100px" height="100px"/>
+        </span>
+        <button class="btn">프로필 이미지 변경</button>
+      </div>
 
-    <div class="modify-content">
-      <span style="margin-right: 10px">이메일</span>
-      <input type="email" id="email" required size="20">
-    </div>
+      <div class="modify-content">
+        <span style="margin-right: 10px">닉네임</span>
+        <input type="text" name="nickname" required size="20" value="{{user.nick}}">
+      </div>
 
-    <div class="modify-btn">
-      <form action="" method="post">
-        <button class="modify-save" type="button">저장</button>
-      </form>
-    </div>
+      <div class="modify-content">
+        <span style="margin-right: 10px">이메일</span>
+        <input type="email" name="email" required size="20" value="{{user.email}}" onchange="">
+      </div>
 
+      <div class="modify-btn">
+        <button class="modify-save" type="submit">저장</button>
+      </div>
+
+    </form>
   </div>
 {% endblock %}
