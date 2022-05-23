@@ -37,6 +37,23 @@
       {% if twit.img %}
       <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
       {% endif %}
+      {% if twit.UserId == user.id %}
+      <div>
+        <details>
+          <summary>수정하기</summary>
+          <div value="modifypost" type="hidden">
+            <form id="comment-form" action="/modify/{{twit.id}}" method="post">
+              <textarea id="comment-text" name="content" maxlength="140"></textarea>
+              <input type="hidden" value="{{twit.User.id}}" name="userId">
+              <button id="comment-btn" type="submit" class="btn">게시</button>
+            </form>
+          </div>
+        </details>
+        <a class="delete-post" href="javascript:void(0);" onclick="javascript:deletePost('{{twit.id}}');">
+          <button class="twit-follow">삭제하기</button>
+        </a>
+      </div>
+      {% endif %}
     </div>
 
     <!-- 좋아요 -->
@@ -190,6 +207,25 @@
       .catch((err) => {
         alert(err);
       });
+    }
+  }
+//게시글 삭제
+function deletePost(postId) {
+    if (confirm('댓글을 정말로 삭제하시겠습니까?')) {
+      axios.delete('/post', {
+        data: {
+          id: postId
+        }
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            alert('삭제되었습니다.');
+          }
+          location.reload();
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   }
 </script>

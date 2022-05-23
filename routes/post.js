@@ -119,4 +119,33 @@ router.delete("/comment", async (req, res, next) => {
   }
 });
 
+router.delete("/", async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const post = await Post.findOne({
+      where: {
+        id: id
+      },
+    });
+
+    if (post) {
+      post.destroy({
+        id
+      });
+      res.status = 200;
+      res.json({
+        result: "deleted",
+      });
+    } else {
+      res.status = 404;
+      res.json({
+        result: "post not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = router;

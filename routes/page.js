@@ -83,18 +83,69 @@ router.get("/hashtag", async (req, res, next) => {
   }
   try {
     const hashtag = await Hashtag.findOne({ where: { title: query } });
+    const nick = await User.findOne({ where : { nick: query}})
     let posts = [];
     if (hashtag) {
       posts = await hashtag.getPosts({ include: [{ model: User }] });
     }
+    if(nick) {
+      posts = await nick.getPosts({ include: [{ model: User }] });
+    }
 
     return res.render("main", {
       title: `${query} | NodeBird`,
-      twits: posts
+      twits: posts,
     });
   } catch (error) {
     console.error(error);
     return next(error);
+  }
+});
+
+router.get('/modify',isLoggedIn, async (req, res, next) => {
+  try {
+    const posts = await Post.findAll({
+      include: {
+        model: User,
+        attributes: ['id', 'nick'],
+      },
+      order: [['createdAt', 'DESC']],
+    });
+
+    const comments = await Comment.findAll({
+      order: [['createdAt', 'DESC']]
+    });
+    res.render('main', {
+      title: 'prj-name',
+      twits: posts,
+      comments:comments,
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.post("/modify/:id", isLoggedIn, async (req, res, next) =>{
+
+  console.log(req.body);
+
+  try{
+    const post = await Post.findOne({
+      where : {id : req.params.id}
+    });
+
+    if (post){
+      const mosdify = await post.update({
+        content: req.body.content
+        
+      });
+    
+    }
+    res.redirect("/");
+  } catch(error){
+    console.error(error);
+    next(error);
   }
 });
 

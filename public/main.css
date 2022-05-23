@@ -130,6 +130,10 @@ footer { text-align: center; }
   height: 32px;
 }
 
+#edit-content {
+  width: 93%; min-height: 60px;
+}
+
 .twit-heart {
   color: #DF362D;
 }
