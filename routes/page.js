@@ -17,12 +17,28 @@ router.use((req, res, next) => {
 router.get("/profile", isLoggedIn, async (req, res, next) => {
   try {
     const posts = await Post.findAll({
-      include: {
-        model: User,
-        attributes: ["id", "nick"],
-      },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nick"],
+        },
+        {
+          model: Comment,
+          as: "comments",
+          include: [
+            {
+              model: User,
+            },
+          ],
+        },
+        {
+          model: Heart,
+          as: "hearts",
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
+
     res.render("profile", {
       title: "Profile - prj-name",
       twits: posts,
