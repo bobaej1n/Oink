@@ -3,10 +3,15 @@
 {% block content %}
 <div class="timeline">
   {% if user %}
+  <form id="hashtag-form" action="/hashtag">
+    <input type="text" name="hashtag" placeholder="태그, 계정 검색">
+    <button class="btn">검색</button>
+  </form>
+  <br>
   <div>
     <form id="twit-form" action="/post" method="post" enctype="multipart/form-data">
       <div class="input-group">
-        <textarea id="twit" name="content" maxlength="140"></textarea>
+        <textarea id="twit" name="content" maxlength="140" class="post-textarea"></textarea>
       </div>
       <div class="img-preview">
         <img id="img-preview" src="" style="display: none;" width="250" alt="미리보기">
@@ -21,10 +26,7 @@
   </div>
   {% endif %}
   <div class="twits">
-    <form id="hashtag-form" action="/hashtag">
-      <input type="text" name="hashtag" placeholder="태그검색">
-      <button class="btn">검색</button>
-    </form>
+    <br>
     {% for twit in twits %}
     <div class="twit">
       <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
@@ -40,18 +42,20 @@
       {% if twit.UserId == user.id %}
       <div>
         <details>
-          <summary>수정하기</summary>
+          <summary class="post-fix">수정하기</summary>
           <div value="modifypost" type="hidden">
-            <form id="comment-form" action="/modify/{{twit.id}}" method="post">
-              <textarea id="comment-text" name="content" maxlength="140">{{twit.content}}</textarea>
+            <form action="/modify/{{twit.id}}" method="post">
+              <textarea name="content" maxlength="140" class="post-textarea">{{twit.content}}</textarea>
               <input type="hidden" value="{{twit.User.id}}" name="userId">
-              <button id="comment-btn" type="submit" class="btn">게시</button>
+              <button type="submit" class="btn">게시</button>
             </form>
           </div>
         </details>
+        <div>
         <a class="delete-post" href="javascript:void(0);" onclick="javascript:deletePost('{{twit.id}}');">
-          <button class="twit-follow">삭제하기</button>
+          <button class="post-fix">삭제하기</button>
         </a>
+      </div>
       </div>
       {% endif %}
     </div>
