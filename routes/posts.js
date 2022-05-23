@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Post, User, Heart } = require('../models');
+const { Post, User, Heart, Comment } = require('../models');
 
 const router = express.Router();
 
@@ -25,14 +25,29 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 router.get('/following', async (req, res, next) => {
   try {
     const posts = await Post.findAll({
-      include: {
-        model: User,
-        attributes: ['id', 'nick'],
-      },
-      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nick"],
+        },
+        {
+          model: Comment,
+          as: "comments",
+          include: [
+            {
+              model: User,
+            },
+          ],
+        },
+        {
+          model: Heart,
+          as: "hearts",
+        },
+      ],
+      order: [["createdAt", "DESC"]],
     });
     const following = true
-    res.render('posts', {
+    res.render('twit', {
       title: 'Posts - prj-name',
       twits: posts,
       following: following,
@@ -47,14 +62,29 @@ router.get('/following', async (req, res, next) => {
 router.get('/follower', async (req, res, next) => {
   try {
     const posts = await Post.findAll({
-      include: {
-        model: User,
-        attributes: ['id', 'nick'],
-      },
-      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nick"],
+        },
+        {
+          model: Comment,
+          as: "comments",
+          include: [
+            {
+              model: User,
+            },
+          ],
+        },
+        {
+          model: Heart,
+          as: "hearts",
+        },
+      ],
+      order: [["createdAt", "DESC"]],
     });
     const follower = true
-    res.render('posts', {
+    res.render('twit', {
       title: 'Posts - prj-name',
       twits: posts,
       follower: follower,
@@ -69,17 +99,32 @@ router.get('/follower', async (req, res, next) => {
 router.get('/like', async (req, res, next) => {
   try {
     const posts = await Post.findAll({
-      include: {
-        model: User,
-        attributes: ['id', 'nick'],
-      },
-      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nick"],
+        },
+        {
+          model: Comment,
+          as: "comments",
+          include: [
+            {
+              model: User,
+            },
+          ],
+        },
+        {
+          model: Heart,
+          as: "hearts",
+        },
+      ],
+      order: [["createdAt", "DESC"]],
     });
     const hearts = await Heart.findAll({
       include: [{ all: true }]
     });
     const like = true
-    res.render('posts', {
+    res.render('twit', {
       title: 'Posts - prj-name',
       twits: posts,
       hearts: hearts,
