@@ -1,0 +1,15 @@
+node_modules/
+uploads/
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+.vscode/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*

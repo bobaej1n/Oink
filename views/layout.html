@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap 설정 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        {% if user and user.id %}
+          <div class="dropdown">
+            <button class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" onclick="dis()">
+              <div class="btn-oink">
+                Oink
+                <img src="images\\down-arrow.png" class="btn-oink-down-arrow">
+              </div>
+            </button>
+            <div class="dropdown-menu">
+              <div><a class="dropdown-item" href="/">홈</a></div>
+              <div><a class="dropdown-item" href="/posts/following">팔로잉 게시글 보기</a></div>
+              <div><a class="dropdown-item" href="/posts/follower">팔로워 게시글 보기</a></div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="profile-wrap">
+        <div class="profile">
+          {% if user and user.id %}
+            <div class="user-name">
+              <img src="../images/default.png" alt="프로필 이미지" width="100px" height="100px" />
+              &nbsp;&nbsp;&nbsp;{{user.nick + '님'}}
+            </div>
+            <div class="half">
+              <div>팔로잉</div>
+              <div class="count following-count">{{followingCount}}</div>
+            </div>
+            <div class="half">
+              <div>팔로워</div>
+              <div class="count follower-count">{{followerCount}}</div>
+            </div>
+          <input id="my-id" type="hidden" value="{{user.id}}">
+          <a id="posts-like" href="/posts/like" class="btn">좋아요한 게시글</a>
+          <a id="my-profile" href="/profile" class="btn">내 프로필</a>
+          <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+          <a id="modify" href="/modify" class="btn">프로필 수정</a>
+        {% else %}
+          <form id="login-form" action="/auth/login" method="post">
+            <div class="input-group">
+              <label for="email">이메일</label>
+              <input id="email" type="email" name="email" required autofocus>
+            </div>
+            <div class="input-group">
+              <label for="password">비밀번호</label>
+              <input id="password" type="password" name="password" required>
+            </div>
+            <a id="join" href="/join" class="btn">회원가입</a>
+            <button id="login" type="submit" class="btn">로그인</button>
+            <a id="kakao" href="/auth/kakao" class="btn">카카오톡</a>
+          </form>
+        {% endif %}
+        </div>
+        <footer>
+          <b>prj-name</b> at Web Framework2 (N)
+        </footer>
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get('loginError')) {
+          alert(new URL(location.href).searchParams.get('loginError'));
+        }
+      };
+      function dis() {
+        if($('.dropdown').hasClass('open') == true) {
+          $('.btn-oink-down-arrow').hide();
+        } else {
+          $('.btn-oink-down-arrow').show();
+        }
+      }
+    </script>
+    {% block script %}
+    {% endblock %}
+  </body>
+</html>

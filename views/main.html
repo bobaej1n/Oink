@@ -1,0 +1,234 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="timeline">
+  {% if user %}
+  <div>
+    <form id="twit-form" action="/post" method="post" enctype="multipart/form-data">
+      <div class="input-group">
+        <textarea id="twit" name="content" maxlength="140"></textarea>
+      </div>
+      <div class="img-preview">
+        <img id="img-preview" src="" style="display: none;" width="250" alt="미리보기">
+        <input id="img-url" type="hidden" name="url">
+      </div>
+      <div>
+        <label id="img-label" for="img">사진 업로드</label>
+        <input id="img" type="file" accept="image/*">
+        <button id="twit-btn" type="submit" class="btn">짹짹</button>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+  <div class="twits">
+    <form id="hashtag-form" action="/hashtag">
+      <input type="text" name="hashtag" placeholder="검색">
+      <button class="btn">검색</button>
+    </form>
+    {% for twit in twits %}
+    <div class="twit">
+      <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
+      <input type="hidden" value="{{twit.id}}" class="twit-id">
+      <div class="twit-author">{{twit.User.nick}}</div>
+      {% if not followerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
+      <button class="twit-follow">팔로우하기</button>
+      {% endif %}
+      <div class="twit-content">{{twit.content}}</div>
+      {% if twit.img %}
+      <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
+      {% endif %}
+      {% if twit.UserId == user.id %}
+      <div>
+        <details>
+          <summary>수정하기</summary>
+          <div value="modifypost" type="hidden">
+            <form id="comment-form" action="/modify/{{twit.id}}" method="post">
+              <textarea id="comment-text" name="content" maxlength="140"></textarea>
+              <input type="hidden" value="{{twit.User.id}}" name="userId">
+              <button id="comment-btn" type="submit" class="btn">게시</button>
+            </form>
+          </div>
+        </details>
+        <a class="delete-post" href="javascript:void(0);" onclick="javascript:deletePost('{{twit.id}}');">
+          <button class="twit-follow">삭제하기</button>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 좋아요 -->
+    {% set isHeart = false %}
+    {% for heart in twit.hearts %}
+      {% if heart.userId == user.id %}
+        {% set isHeart = true %}
+      {% endif %}
+    {% endfor %}
+
+    {% if isHeart == false %}
+    <a class="twit-heart" href="javascript:void(0);"
+    onclick="javascript:heart('{{user.id}}', '{{twit.id}}', true, this);">
+    <i class="fa fa-heart-o"></i>
+  </a>
+    {% else %}
+    <a class="twit-heart" href="javascript:void(0);"
+    onclick="javascript:heart('{{user.id}}', '{{twit.id}}' , false, this);">
+    <i class="fa fa-heart"></i>
+    </a>
+    {% endif %}
+
+  {{twit.hearts.length}}
+
+  <!-- 좋아요 끝 -->
+
+  <!-- 댓글 -->
+  <div>
+  <details>
+    <summary>{{twit.comments.length}}개의 댓글 보기</summary>
+    <div>
+    <form action="/post/comment" method="post">
+      <input type="hidden" name="userId" value="{{twit.User.id}}" class="twit-user-id">
+      <input type="hidden" name="postId" value="{{twit.id}}" class="twit-id">
+      <textarea id="comment-content" name="content" maxlength="140"></textarea>
+      <button id="comment-submit" type="submit">작성</button>
+  </form>
+  </div>
+  <p class="comments">
+    {% for comment in twit.comments %}
+    <div class="comment">
+    <div class="comment-info-container">
+      <div class="comment__user">{{comment.User.nick}}</div>
+      <div class="comment__createdAt"> 
+        {{comment.createdAt}}
+      </div>
+      <!-- 내 댓글일 경우만 삭제 가능함 -->
+      {% if comment.userId == user.id %}
+      <a class="comment__delete" href="javascript:void(0);"
+      onclick="javascript:deleteComment('{{comment.id}}');">
+      <i class="fa fa-trash"></i>
+      </a>
+      {% endif %}
+    </div>
+    <div class="comment__content">
+      {{comment.content}}
+    </div>
+    </div>
+    {% endfor %}
+    </p>
+</details>
+</div> 
+<!--댓글 끝-->
+<br>
+  {% endfor %}
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  if (document.getElementById('img')) {
+    document.getElementById('img').addEventListener('change', function (e) {
+      const formData = new FormData();
+      console.log(this, this.files);
+      formData.append('img', this.files[0]);
+      axios.post('/post/img', formData)
+        .then((res) => {
+          document.getElementById('img-url').value = res.data.url;
+          document.getElementById('img-preview').src = res.data.url;
+          document.getElementById('img-preview').style.display = 'inline';
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+  }
+  document.querySelectorAll('.twit-follow').forEach(function (tag) {
+    tag.addEventListener('click', function () {
+      const myId = document.querySelector('#my-id');
+      if (myId) {
+        const userId = tag.parentNode.querySelector('.twit-user-id').value;
+        if (userId !== myId.value) {
+          if (confirm('팔로잉하시겠습니까?')) {
+            axios.post(`/user/${userId}/follow`)
+              .then(() => {
+                location.reload();
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
+        }
+      }
+    });
+  });
+
+  // 좋아요
+  function heart(userId, postId, isDoHeart, tag) {
+    if (isDoHeart) {              
+      axios.post('/heart', {
+          userId: userId,
+          postId: postId
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            location.reload();
+          }
+        })
+        .catch(err => console.log("하트 추가 실패", err));
+    }
+    else {
+      axios.delete('/heart', {
+        data: {
+          userId: userId,
+          postId: postId
+        }
+      })
+      .then((res) => {
+        if (res.status == 200) location.reload();
+      })
+      .catch(err => console.log("하트 삭제 실패", err));
+    }
+  }
+
+  // 댓글 삭제
+  function deleteComment(commentId) {
+    if (confirm('댓글을 정말로 삭제하시겠습니까?')) {
+      axios.delete('/post/comment', {
+        data: {
+          id: commentId
+        }
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          alert('삭제되었습니다.');
+        }
+        location.reload();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+    }
+  }
+
+//게시글 삭제
+function deletePost(postId) {
+    if (confirm('댓글을 정말로 삭제하시겠습니까?')) {
+      axios.delete('/post', {
+        data: {
+          id: postId
+        }
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            alert('삭제되었습니다.');
+          }
+          location.reload();
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+  }
+
+</script>
+{% endblock %}
