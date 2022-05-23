@@ -22,7 +22,7 @@
   {% endif %}
   <div class="twits">
     <form id="hashtag-form" action="/hashtag">
-      <input type="text" name="hashtag" placeholder="검색">
+      <input type="text" name="hashtag" placeholder="태그 검색">
       <button class="btn">검색</button>
     </form>
     {% for twit in twits %}
@@ -209,7 +209,6 @@
       });
     }
   }
-
 //게시글 삭제
 function deletePost(postId) {
     if (confirm('댓글을 정말로 삭제하시겠습니까?')) {
@@ -229,6 +228,5 @@ function deletePost(postId) {
         });
     }
   }
-
 </script>
 {% endblock %}
