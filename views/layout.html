@@ -38,7 +38,7 @@
         <div class="profile">
           {% if user and user.id %}
             <div class="user-name">
-              <img class="user-profileImg" src="../profileImg/profileImg.jpg" alt="프로필 이미지" width="100px" height="100px"/>
+              <img class="user-profileImg" src="{{user.profileImg}}" width="100px" height="100px"/>
               &nbsp;&nbsp;&nbsp;{{user.nick + '님'}}
             </div>
             <div class="half">
