@@ -28,8 +28,9 @@ module.exports = class User extends Sequelize.Model {
         },
         // 프로필 이미지
         profileImg: {
-          type: Sequelize.BLOB(),
+          type: Sequelize.STRING(200),
           allowNull: true,
+          defaultValue: "../images/default.png",
         }
       },
       {
