@@ -6,8 +6,8 @@
       <h2>팔로잉 목록</h2>
       {% if user.Followings %}
         {% for following in user.Followings %}
-          <img class="user-profileImg" src="{{following.User.profileImg}}" width="40px" height="40px">
           <div>
+            <img class="user-profileImg" src="{{following.profileImg}}" width="40px" height="40px">
             {{following.nick}}
           </div>
         {% endfor %}
@@ -17,8 +17,8 @@
       <h2>팔로워 목록</h2>
       {% if user.Followers %}
         {% for follower in user.Followers %}
-          <img class="user-profileImg" src="{{follower.User.profileImg}}" width="40px" height="40px">
           <div>
+            <img class="user-profileImg" src="{{follower.profileImg}}" width="40px" height="40px">
             {{follower.nick}}
           </div>
         {% endfor %}
@@ -83,7 +83,10 @@
           {% for comment in twit.comments %}
           <div class="comment">
           <div class="comment-info-container">
-          <div class="comment__user">{{comment.User.nick}}</div>
+          <div class="comment__user">
+            <img class="user-profileImg" src="{{comment.User.profileImg}}" width="40px" height="40px">
+            {{comment.User.nick}}
+          </div>
           <div class="comment__createdAt"> 
               {{comment.createdAt}}
           </div>
