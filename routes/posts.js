@@ -36,7 +36,6 @@ router.get('/following', async (req, res, next) => {
           include: [
             {
               model: User,
-              attributes: ["profileImg"],
             },
           ],
         },
