@@ -36,7 +36,7 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
           as: "hearts",
         },
       ],
-      order: [["createdAt", "DESC"]],
+      order: [["createdAt", "DESC"], [{model: Comment, as: "comments"},'createdAt', "ASC"]],
     });
 
     res.render("profile", {
@@ -80,7 +80,7 @@ router.get("/", async (req, res, next) => {
           as: "hearts",
         },
       ],
-      order: [["createdAt", "DESC"]],
+      order: [["createdAt", "DESC"], [{model: Comment, as: "comments"},'createdAt', "ASC"]],
     });
 
     res.render("main", {
