@@ -28,7 +28,7 @@ router.get('/following', async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "nick"],
+          attributes: ["id", "nick", "profileImg"],
         },
         {
           model: Comment,
@@ -36,6 +36,7 @@ router.get('/following', async (req, res, next) => {
           include: [
             {
               model: User,
+              attributes: ["profileImg"],
             },
           ],
         },
@@ -65,7 +66,7 @@ router.get('/follower', async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "nick"],
+          attributes: ["id", "nick", "profileImg"],
         },
         {
           model: Comment,
@@ -102,7 +103,7 @@ router.get('/like', async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "nick"],
+          attributes: ["id", "nick", "profileImg"],
         },
         {
           model: Comment,

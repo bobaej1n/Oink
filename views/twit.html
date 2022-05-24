@@ -5,6 +5,7 @@
 
 {% block twit %}
     <div class="twit">
+        <img class="user-profileImg" src="{{twit.User.profileImg}}" width="40px" height="40px">
         <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
         <input type="hidden" value="{{twit.id}}" class="twit-id">
         <div class="twit-author">{{twit.User.nick}}</div>

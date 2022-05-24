@@ -33,6 +33,7 @@
     </form>
     {% for twit in twits %}
     <div class="twit">
+      <img class="user-profileImg" src="{{twit.User.profileImg}}" width="40px" height="40px">
       <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
       <input type="hidden" value="{{twit.id}}" class="twit-id">
       <div class="twit-author">{{twit.User.nick}}</div>
@@ -106,7 +107,10 @@
     {% for comment in twit.comments %}
     <div class="comment">
     <div class="comment-info-container">
-      <div class="comment__user">{{comment.User.nick}}</div>
+      <div class="comment__user">
+        <img class="user-profileImg" src="{{comment.User.profileImg}}" width="40px" height="40px">
+        {{comment.User.nick}}
+      </div>
       <div class="comment__createdAt"> 
         {{comment.createdAt}}
       </div>
