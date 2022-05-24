@@ -9,13 +9,12 @@
 
       <div class="modify-content">
         <div class="img-preview">
-          <!-- 확장자가 jpg가 아니면 어떡..하지..? -->
-          <img id="img-modified" src="/profileImg/profileImg.jpg" alt="프로필 이미지" id="profileImg" width="150px" height="150px" style="border-radius: 70%;" />
+          <img id="img-modified" src="{{user.profileImg}}" id="profileImg" width="150px" height="150px" style="border-radius: 70%;" />
           <img id="img-preview" src="" style="display: none;" alt="미리보기">
           <input id="img-url" type="hidden" name="url">
         </div>
         <div>
-          <input id="profileImg" type="file" accept="image/*" style="padding: 10px;">  
+          <input id="profileImg" type="file" name="profileImg" accept="image/*" style="padding: 10px;">  
         </div>
       </div>
 
@@ -30,7 +29,7 @@
       </div>
 
       <div class="modify-btn">
-        <input class="modify-save" type="button" id="saveBtn" value="저장" />
+        <button class="modify-save" type="submit">저장</button>
       </div>
 
     </form>
@@ -39,6 +38,7 @@
 
 {% block script %}
 <script>
+  document.getElementById('img-url').value = "{{user.profileImg}}";
   if (document.getElementById('profileImg')) {
     document.getElementById('profileImg').addEventListener('change', function (e) {
       const formData = new FormData();
@@ -46,23 +46,9 @@
       formData.append('img', this.files[0]);
       axios.post('/post/img', formData)
         .then((res) => {
+          document.getElementById('img-url').value = res.data.url;
           document.getElementById('img-modified').src = res.data.url;
           document.getElementById('img-modified').style.display = 'inline';
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    });
-  }
-  if (document.getElementById('profileImg')) {
-    document.getElementById('saveBtn').addEventListener('click', function (e) {
-      const formData = new FormData();
-      console.log(this, this.files);
-      formData.append('profileImg', document.getElementById('profileImg').files[0]);
-      axios.post('/user/profileImg', formData)
-        .then((res) => {
-          document.getElementById('img-url').value = res.data.url;
-          location.replace('/modify');
         })
         .catch((err) => {
           console.error(err);

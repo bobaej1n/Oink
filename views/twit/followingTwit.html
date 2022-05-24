@@ -1,0 +1,8 @@
+{% extends 'posts.html' %}
+
+{% block following %}
+    {% if myFollowerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
+        {% block twit %}
+        {% endblock %}
+    {% endif %}
+{% endblock %}

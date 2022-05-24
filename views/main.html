@@ -27,6 +27,10 @@
   {% endif %}
   <div class="twits">
     <br>
+    <form id="hashtag-form" action="/hashtag">
+      <input type="text" name="hashtag" placeholder="태그검색">
+      <button class="btn">검색</button>
+    </form>
     {% for twit in twits %}
     <div class="twit">
       <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
@@ -46,6 +50,8 @@
           <div value="modifypost" type="hidden">
             <form action="/modify/{{twit.id}}" method="post">
               <textarea name="content" maxlength="140" class="post-textarea">{{twit.content}}</textarea>
+            <form id="comment-form" action="/modify/{{twit.id}}" method="post">
+              <textarea id="comment-text" name="content" maxlength="140">{{twit.content}}</textarea>
               <input type="hidden" value="{{twit.User.id}}" name="userId">
               <button type="submit" class="btn">게시</button>
             </form>
