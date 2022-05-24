@@ -6,7 +6,10 @@
       <h2>팔로잉 목록</h2>
       {% if user.Followings %}
         {% for following in user.Followings %}
-          <div>{{following.nick}}</div>
+          <img class="user-profileImg" src="{{following.User.profileImg}}" width="40px" height="40px">
+          <div>
+            {{following.nick}}
+          </div>
         {% endfor %}
       {% endif %}
     </div>
@@ -14,7 +17,10 @@
       <h2>팔로워 목록</h2>
       {% if user.Followers %}
         {% for follower in user.Followers %}
-          <div>{{follower.nick}}</div>
+          <img class="user-profileImg" src="{{follower.User.profileImg}}" width="40px" height="40px">
+          <div>
+            {{follower.nick}}
+          </div>
         {% endfor %}
       {% endif %}
     </div>
@@ -24,6 +30,7 @@
       {% for twit in twits %}
         {% if twit.User.id == user.id %}
         <div class="twit">
+          <img class="user-profileImg" src="{{twit.User.profileImg}}" width="40px" height="40px">
           <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
           <input type="hidden" value="{{twit.id}}" class="twit-id">
           <div class="twit-author">{{twit.User.nick}}</div>

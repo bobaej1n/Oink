@@ -20,7 +20,7 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "nick"],
+          attributes: ["id", "nick", "profileImg"],
         },
         {
           model: Comment,
@@ -63,7 +63,7 @@ router.get("/", async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "nick"],
+          attributes: ["id", "nick", "profileImg"],
         },
         {
           model: Comment,
@@ -71,6 +71,7 @@ router.get("/", async (req, res, next) => {
           include: [
             {
               model: User,
+              attributes: ["profileImg"],
             },
           ],
         },
@@ -123,7 +124,7 @@ router.get('/modify',isLoggedIn, async (req, res, next) => {
     const posts = await Post.findAll({
       include: {
         model: User,
-        attributes: ['id', 'nick'],
+        attributes: ['id', 'nick', 'profileImg'],
       },
       order: [['createdAt', 'DESC']],
     });
