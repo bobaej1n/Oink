@@ -57,7 +57,10 @@
           <input type="hidden" value="{{twit.User.id}}" name="userId">
         </form>
       </div>
-      <button class="post-fix">수정하기</button>
+      <button class="post-fix" style="margin-top: 10px;">수정하기</button>
+      <a class="delete-post" href="javascript:void(0);" onclick="javascript:deletePost('{{twit.id}}');">
+        <button class="twit-follow">삭제하기</button>
+      </a>
       {% endif %}
       <!-- {% if twit.UserId == user.id %}
       <div>
@@ -277,9 +280,10 @@
       });
     }
   }
+  
 //게시글 삭제
 function deletePost(postId) {
-    if (confirm('댓글을 정말로 삭제하시겠습니까?')) {
+    if (confirm('게시글을 정말로 삭제하시겠습니까?')) {
       axios.delete('/post', {
         data: {
           id: postId
