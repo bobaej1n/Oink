@@ -306,3 +306,14 @@ details > summary {
 footer{
   padding-top: 5px;
 }
+
+.follow-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.follow-list {
+  font-size: 16px;
+  font-weight: 600;margin-left: 5px;
+}

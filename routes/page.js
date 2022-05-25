@@ -40,7 +40,7 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
     });
 
     res.render("profile", {
-      title: "Profile - prj-name",
+      title: "Profile - Oink",
       twits: posts,
     });
   } catch (err) {
@@ -50,11 +50,11 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
 });
 
 router.get("/modify", isLoggedIn, async (req, res, next) => {
-  res.render("modify", { title: "Modify - prj-name" });
+  res.render("modify", { title: "Modify - Oink" });
 });
 
 router.get("/join", isNotLoggedIn, (req, res) => {
-  res.render("join", { title: "Join to - prj-name" });
+  res.render("join", { title: "Join to - Oink" });
 });
 
 router.get("/", async (req, res, next) => {
@@ -84,7 +84,7 @@ router.get("/", async (req, res, next) => {
     });
 
     res.render("main", {
-      title: "prj-name",
+      title: "Oink",
       twits: posts,
     });
   } catch (err) {
@@ -133,7 +133,7 @@ router.get('/modify',isLoggedIn, async (req, res, next) => {
       order: [['createdAt', 'DESC']]
     });
     res.render('main', {
-      title: 'prj-name',
+      title: 'Oink',
       twits: posts,
       comments:comments,
     });
