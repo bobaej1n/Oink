@@ -1,29 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <div class="timeline">
+  <div class="timeline" style="margin-left: 220px;">
     <div class="followings half">
-      <h2>팔로잉 목록</h2>
+      <div class="follow-title">팔로잉 목록</div>
       {% if user.Followings %}
         {% for following in user.Followings %}
-          <div>
+          <div style="margin-bottom: 10px;">
             <span>
               <img class="user-profileImg" src="{{following.profileImg}}" width="40px" height="40px">
             </span>
-            {{following.nick}}
+            <span class="follow-list">{{following.nick}}</span>
           </div>
         {% endfor %}
       {% endif %}
     </div>
     <div class="followers half">
-      <h2>팔로워 목록</h2>
+      <div class="follow-title">팔로워 목록</div>
       {% if user.Followers %}
         {% for follower in user.Followers %}
-          <div>
+          <div style="margin-bottom: 10px;">
             <span>
               <img class="user-profileImg" src="{{follower.profileImg}}" width="40px" height="40px">
             </span>
-            {{follower.nick}}
+            <span class="follow-list">{{follower.nick}}</span>
           </div>
         {% endfor %}
       {% endif %}
