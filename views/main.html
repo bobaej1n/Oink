@@ -32,7 +32,7 @@
       <button class="btn">검색</button>
     </form>
     {% for twit in twits %}
-    <div class="twit">
+    <div class="twit" style="clear:right;">
       <img class="user-profileImg" src="{{twit.User.profileImg}}" width="40px" height="40px">
       <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
       <input type="hidden" value="{{twit.id}}" class="twit-id">
@@ -51,10 +51,10 @@
       {% if twit.User.id == user.id %}
       <!-- 수정하기 하는곳..... -->
       <div class = "post-fix-box" value="modifypost" style="display:none;">
-        <form id="comment-form" action="/modify/{{twit.id}}" method="post">
-          <textarea id="comment-text" name="content" maxlength="140">{{twit.content}}</textarea>
-          <input type="hidden" value="{{twit.User.id}}" name="userId">
+        <form id="post-modify-form" action="/modify/{{twit.id}}" method="post">
           <button type="submit" id="post-fix-submit"class="btn">게시</button>
+          <textarea id="post-modify-text" name="content" maxlength="140">{{twit.content}}</textarea>
+          <input type="hidden" value="{{twit.User.id}}" name="userId">
         </form>
       </div>
       <button class="post-fix">수정하기</button>

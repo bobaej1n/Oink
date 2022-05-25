@@ -111,9 +111,10 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
 .twit {
   border: 1px solid silver;
   border-radius: 4px;
-  padding: 10px;
+  padding: 15px;
   position: relative;
   margin-bottom: 10px;
+  clear: both;
 }
 .twit-author { display: inline-block; font-weight: bold; margin-right: 10px; }
 
@@ -137,6 +138,17 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
   font-size: 12px;
   cursor: pointer;
 }
+
+#post-modify-text {
+  width: 100%;
+  min-height: 64px;
+}
+
+#post-fix-submit {
+  float: right;
+}
+
+
 .twit-img { text-align: center; }
 .twit-img img { max-width: 75%; }
 .error-message { color: red; font-weight: bold; }
@@ -162,6 +174,11 @@ footer { text-align: center; }
 
 #edit-content {
   width: 93%; min-height: 60px;
+}
+
+.twit-content{
+  margin-top: 10px;
+  clear: both;
 }
 
 .twit-heart {
