@@ -14,11 +14,11 @@ router.use((req, res, next) => {
 });
 
 router.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile', { title: 'Profile - prj-name' });
+  res.render('profile', { title: 'Profile - Oink' });
 });
 
 router.get('/join', isNotLoggedIn, (req, res) => {
-  res.render('join', { title: 'Join to - prj-name' });
+  res.render('join', { title: 'Join to - Oink' });
 });
 
 // 팔로잉 게시글 보기 
@@ -48,7 +48,7 @@ router.get('/following', async (req, res, next) => {
     });
     const following = true
     res.render('twit', {
-      title: 'Posts - prj-name',
+      title: 'Posts - Oink',
       twits: posts,
       following: following,
     });
@@ -85,7 +85,7 @@ router.get('/follower', async (req, res, next) => {
     });
     const follower = true
     res.render('twit', {
-      title: 'Posts - prj-name',
+      title: 'Posts - Oink',
       twits: posts,
       follower: follower,
     });
@@ -125,7 +125,7 @@ router.get('/like', async (req, res, next) => {
     });
     const like = true
     res.render('twit', {
-      title: 'Posts - prj-name',
+      title: 'Posts - Oink',
       twits: posts,
       hearts: hearts,
       like: like,

@@ -27,10 +27,6 @@
   {% endif %}
   <div class="twits">
     <br>
-    <!-- <form id="hashtag-form" action="/hashtag">
-      <input type="text" name="hashtag" placeholder="태그검색">
-      <button class="btn">검색</button>
-    </form> -->
     {% for twit in twits %}
     <div class="twit" style="clear:right;">
       <img class="user-profileImg" src="{{twit.User.profileImg}}" width="40px" height="40px">
@@ -62,27 +58,6 @@
         <button class="twit-follow">삭제하기</button>
       </a>
       {% endif %}
-      <!-- {% if twit.UserId == user.id %}
-      <div>
-        <details>
-          <summary class="post-fix">수정하기</summary>
-          <div value="modifypost" type="hidden">
-            <form action="/modify/{{twit.id}}" method="post">
-              <textarea name="content" maxlength="140" class="post-textarea">{{twit.content}}</textarea>
-            <form id="comment-form" action="/modify/{{twit.id}}" method="post">
-              <textarea id="comment-text" name="content" maxlength="140">{{twit.content}}</textarea>
-              <input type="hidden" value="{{twit.User.id}}" name="userId">
-              <button type="submit" class="btn">게시</button>
-            </form>
-          </div>
-        </details>
-        <div>
-        <a class="delete-post" href="javascript:void(0);" onclick="javascript:deletePost('{{twit.id}}');">
-          <button class="post-fix">삭제하기</button>
-        </a>
-      </div>
-      </div>
-      {% endif %} -->
     </div>
 
     <!-- 좋아요 -->
