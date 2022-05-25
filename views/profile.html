@@ -7,7 +7,9 @@
       {% if user.Followings %}
         {% for following in user.Followings %}
           <div>
-            <img class="user-profileImg" src="{{following.profileImg}}" width="40px" height="40px">
+            <span>
+              <img class="user-profileImg" src="{{following.profileImg}}" width="40px" height="40px">
+            </span>
             {{following.nick}}
           </div>
         {% endfor %}
@@ -18,7 +20,9 @@
       {% if user.Followers %}
         {% for follower in user.Followers %}
           <div>
-            <img class="user-profileImg" src="{{follower.profileImg}}" width="40px" height="40px">
+            <span>
+              <img class="user-profileImg" src="{{follower.profileImg}}" width="40px" height="40px">
+            </span>
             {{follower.nick}}
           </div>
         {% endfor %}
@@ -41,6 +45,20 @@
           {% if twit.img %}
           <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
           {% endif %}
+          {% if twit.User.id == user.id %}
+          <!-- 수정하기 하는곳..... -->
+          <div class = "post-fix-box" value="modifypost" style="display:none;">
+            <form id="post-modify-form" action="/modify/{{twit.id}}" method="post">
+              <button type="submit" id="post-fix-submit"class="btn">게시</button>
+              <textarea id="post-modify-text" name="content" maxlength="140">{{twit.content}}</textarea>
+              <input type="hidden" value="{{twit.User.id}}" name="userId">
+            </form>
+          </div>
+          <button class="post-fix" style="margin-top: 10px;">수정하기</button>
+          <a class="delete-post" href="javascript:void(0);" onclick="javascript:deletePost('{{twit.id}}');">
+            <button class="twit-follow">삭제하기</button>
+          </a>
+          {% endif %}    
       </div>
   
       <!-- 좋아요 -->
@@ -198,6 +216,42 @@
       .catch((err) => {
         alert(err);
       });
+    }
+  }
+
+  // 게시글 수정
+  if (document.getElementsByClassName('.post-fix')) {
+    document.querySelectorAll('.post-fix').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        // 수정하기 버튼 hide + 수정창 show
+        $(".post-fix").hide();
+        $(".post-fix-box").show();
+        
+        // "게시" 버튼 누르면 수정창 사라짐.
+        btn.getElementsById("post-fix-submit").addEventListener('click', function() {
+          btn.getElementsById("post-fix-box").style.display = "none";
+        });
+      });
+    });
+  }
+
+  // 게시글 삭제
+  function deletePost(postId) {
+    if (confirm('게시글을 정말로 삭제하시겠습니까?')) {
+      axios.delete('/post', {
+        data: {
+          id: postId
+        }
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            alert('삭제되었습니다.');
+          }
+          location.reload();
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   }
 </script>
