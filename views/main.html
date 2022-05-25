@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="timeline">
-  {% if user %}
   <form id="hashtag-form" action="/hashtag">
     <input type="text" name="hashtag" placeholder="태그, 계정을 검색해보세요" size="50">
     <button class="btn">검색</button>
   </form>
+  {% if user %}
   <br>
   <div>
     <form id="twit-form" action="/post" method="post" enctype="multipart/form-data">
