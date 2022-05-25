@@ -4,7 +4,7 @@
 <div class="timeline">
   {% if user %}
   <form id="hashtag-form" action="/hashtag">
-    <input type="text" name="hashtag" placeholder="태그, 계정 검색">
+    <input type="text" name="hashtag" placeholder="태그, 계정을 검색해보세요" size="50">
     <button class="btn">검색</button>
   </form>
   <br>
@@ -20,17 +20,17 @@
       <div>
         <label id="img-label" for="img">사진 업로드</label>
         <input id="img" type="file" accept="image/*">
-        <button id="twit-btn" type="submit" class="btn">짹짹</button>
+        <button id="twit-btn" type="submit" class="btn">Oink</button>
       </div>
     </form>
   </div>
   {% endif %}
   <div class="twits">
     <br>
-    <form id="hashtag-form" action="/hashtag">
+    <!-- <form id="hashtag-form" action="/hashtag">
       <input type="text" name="hashtag" placeholder="태그검색">
       <button class="btn">검색</button>
-    </form>
+    </form> -->
     {% for twit in twits %}
     <div class="twit" style="clear:right;">
       <img class="user-profileImg" src="{{twit.User.profileImg}}" width="40px" height="40px">
